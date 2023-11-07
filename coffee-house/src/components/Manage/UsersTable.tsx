@@ -24,6 +24,7 @@ export default function UsersTable() {
     deleteUsers(token, userId)
       .then(() => {
         console.log('User deleted');
+        setUsersData(usersData.filter(user => user._id !== userId));
       })
       .catch((error) => {
         console.error(error);
@@ -51,4 +52,4 @@ export default function UsersTable() {
       <DeleteDialog open={isDeleteDialogOpen} onCancel={closeDeleteDialog} onDelete={() => deleteUser(selectedUserId)} />
     </>
   );
-}
+};

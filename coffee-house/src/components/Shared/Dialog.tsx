@@ -10,7 +10,7 @@ export default function DeleteDialog({ open, onCancel, onDelete }: DeleteDialogP
   const handleConfirmDelete = () => {
     onDelete();
     onCancel();
-  }
+  };
 
   return (
     <Dialog open={open} onClose={onCancel} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
