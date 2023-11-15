@@ -39,7 +39,7 @@ export function CustomTable({ data, headers, productRenderer, onDelete }: TableP
                                                 header === 'options' ? (
                                                     <>
                                                         <Button>Edit</Button>
-                                                        <Button onClick={() => onDelete(item._id)}>Delete</Button>
+                                                        <Button onClick={() => onDelete(item.email)}>Delete</Button>
                                                     </>
                                                 ) :
                                                     item[header]}

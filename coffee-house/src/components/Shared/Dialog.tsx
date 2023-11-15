@@ -1,12 +1,13 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 
 interface DeleteDialogProps {
+  message: string;
   open: boolean;
   onCancel: () => void;
   onDelete: () => void;
 }
 
-export default function DeleteDialog({ open, onCancel, onDelete }: DeleteDialogProps) {
+export default function DeleteDialog({ message, open, onCancel, onDelete }: DeleteDialogProps) {
   const handleConfirmDelete = () => {
     onDelete();
     onCancel();
@@ -15,7 +16,7 @@ export default function DeleteDialog({ open, onCancel, onDelete }: DeleteDialogP
   return (
     <Dialog open={open} onClose={onCancel} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
       <DialogTitle id="alert-dialog-title">
-        {"Would you like to delete this entry?"}
+        {message}
       </DialogTitle>
       <DialogActions>
         <Button onClick={onCancel}>No</Button>
