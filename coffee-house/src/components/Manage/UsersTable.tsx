@@ -10,7 +10,7 @@ export default function UsersTable() {
   interface State {
     usersData: Users[];
     isDeleteDialogOpen: boolean;
-    selectedUserId: string;
+    selectedUserEmail: string;
   }
   
   interface Action {
@@ -21,7 +21,7 @@ export default function UsersTable() {
   const initialState = {
     usersData: [],
     isDeleteDialogOpen: false,
-    selectedUserId: '',
+    selectedUserEmail: '',
   };
 
   const reducer = (state: State, action: Action) => {
@@ -29,9 +29,9 @@ export default function UsersTable() {
       case 'SET_USERS_DATA':
         return { ...state, usersData: action.payload };
       case 'OPEN_DELETE_DIALOG':
-        return { ...state, isDeleteDialogOpen: true, selectedUserId: action.payload };
+        return { ...state, isDeleteDialogOpen: true, selectedUserEmail: action.payload };
       case 'CLOSE_DELETE_DIALOG':
-        return { ...state, isDeleteDialogOpen: false, selectedUserId: '' };
+        return { ...state, isDeleteDialogOpen: false, selectedUserEmail: '' };
       default:
         return state;
     }
@@ -50,14 +50,14 @@ export default function UsersTable() {
       });
   }, [token]);
 
-  const openDeleteDialog = (userId: string) => {
-    dispatch({ type: 'OPEN_DELETE_DIALOG', payload: userId });
+  const openDeleteDialog = (email: string) => {
+    dispatch({ type: 'OPEN_DELETE_DIALOG', payload: email });
   };
 
-  const deleteUser = (userId: string) => {
-    deleteUsers(token, userId)
+  const deleteUser = (email: string) => {
+    deleteUsers(token, email)
       .then(() => {
-        dispatch({ type: 'SET_USERS_DATA', payload: state.usersData.filter((user: Users) => user._id !== userId) });
+        dispatch({ type: 'SET_USERS_DATA', payload: state.usersData.filter((user: Users) => user.email !== email) });
       })
       .catch((error) => {
         console.error(error);
@@ -73,7 +73,7 @@ export default function UsersTable() {
   return (
     <>
       <CustomTable data={state.usersData} headers={tableHeaders} onDelete={openDeleteDialog}/>
-      <DeleteDialog open={state.isDeleteDialogOpen} onCancel={closeDeleteDialog} onDelete={() => deleteUser(state.selectedUserId)} />
+      <DeleteDialog message={`Would you like to delete ${state.selectedUserEmail}?`} open={state.isDeleteDialogOpen} onCancel={closeDeleteDialog} onDelete={() => deleteUser(state.selectedUserEmail)} />
     </>
   );
 };

@@ -23,8 +23,8 @@ export const getUsers = (token: string): Promise<Users[]> => {
     });
 };
 
-export const deleteUsers = (token: string, _id: string): Promise<Users[]> => {
-    const url = `${URL}/${_id}`;
+export const deleteUsers = (token: string, email: string): Promise<Users[]> => {
+    const url = `${URL}/${email}`;
     return fetch(url, {
         method: 'DELETE',
         headers: {
