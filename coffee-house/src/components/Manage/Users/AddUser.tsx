@@ -29,7 +29,7 @@ export default function LoginForm() {
         try {
             setIsLoading(true);
             await createUser(token, data);
-            navigate('/manage');
+            navigate('/manage/users');
         } catch (error) {
             const errorMessage = 'Please, check the user information.';
             setMessage(errorMessage);

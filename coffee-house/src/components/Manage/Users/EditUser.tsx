@@ -48,7 +48,7 @@ export default function EditUser() {
 
             await editUser(token, id, updatedData);
             console.log(updatedData)
-            navigate('/manage');
+            navigate('/manage/users');
         } catch (error) {
             const errorMessage = 'Please, check the user information.';
             setMessage(errorMessage);
