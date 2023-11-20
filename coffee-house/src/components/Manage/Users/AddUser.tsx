@@ -39,7 +39,7 @@ export default function LoginForm() {
     };
 
     const onCancel = () => {
-        navigate('/manage')
+        navigate('/manage/users')
     };
 
     return (

@@ -58,7 +58,7 @@ export default function EditUser() {
     };
 
     const onCancel = () => {
-        navigate('/manage')
+        navigate('/manage/users')
     };
 
     return (

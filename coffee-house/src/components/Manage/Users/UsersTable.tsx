@@ -14,7 +14,7 @@ export default function UsersTable() {
     isDeleteDialogOpen: boolean;
     selectedUserEmail: string;
   }
-  
+
   interface Action {
     type: string;
     payload?: any;
@@ -39,7 +39,7 @@ export default function UsersTable() {
     }
   };
 
-  const [state, dispatch] = useReducer(reducer, initialState );
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { token } = useAuth();
   const navigate = useNavigate();
 
@@ -79,9 +79,9 @@ export default function UsersTable() {
 
   return (
     <>
-    <Button><Link to={'/manage'}>Manage</Link></Button>
-      <Button><Link to={'/new-user'}>Add User</Link></Button>
-      <CustomTable data={state.usersData} headers={tableHeaders} onDelete={openDeleteDialog} onEdit={openEditPage}/>
+      <Button><Link to={'/manage'}>Manage</Link></Button>
+      <Button><Link to={'/manage/users/new'}>Add User</Link></Button>
+      <CustomTable data={state.usersData} headers={tableHeaders} onDelete={openDeleteDialog} onEdit={openEditPage} />
       <DeleteDialog message={`Would you like to delete ${state.selectedUserEmail}?`} open={state.isDeleteDialogOpen} onCancel={closeDeleteDialog} onDelete={() => deleteUser(state.selectedUserEmail)} />
     </>
   );

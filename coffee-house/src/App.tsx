@@ -30,8 +30,6 @@ function App() {
             </Routes>
           }
         />
-        <Route path='/new-user' element={<AddUser />} />
-        <Route path='/manage/edit/:id' element={<EditUser />} />
         <Route path='/fronthouse' element={<FrontHouse />} />
         <Route path='/backhouse' element={<BackHouse />} />
       </Routes>

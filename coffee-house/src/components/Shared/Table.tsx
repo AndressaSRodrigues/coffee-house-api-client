@@ -40,7 +40,7 @@ export function CustomTable({ data, headers, productRenderer, onDelete, onEdit }
                                                 header === 'options' ? (
                                                     <>
                                                         <Button onClick={() => onEdit(item._id)}>Edit</Button>
-                                                        <Button onClick={() => onDelete(item.email)}>Delete</Button>
+                                                        <Button onClick={() => onDelete(item.email || item.id)}>Delete</Button>
                                                     </>
                                                 ) :
                                                     item[header]}
