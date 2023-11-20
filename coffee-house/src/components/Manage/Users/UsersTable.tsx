@@ -1,9 +1,11 @@
-import { Users } from '../../interfaces/Users';
-import { getUsers, deleteUsers } from '../../services/users';
-import { useAuth } from '../../context/AuthContext';
-import { CustomTable } from '../Shared/Table';
-import DeleteDialog from '../Shared/Dialog';
+import { Link, useNavigate } from 'react-router-dom';
+import { Users } from '../../../interfaces/Users';
+import { getUsers, deleteUsers } from '../../../services/users';
+import { useAuth } from '../../../context/AuthContext';
+import { CustomTable } from '../../Shared/Table';
+import DeleteDialog from '../../Shared/Dialog';
 import { useReducer, useEffect } from 'react';
+import { Button } from '@mui/material';
 
 export default function UsersTable() {
 
@@ -39,6 +41,7 @@ export default function UsersTable() {
 
   const [state, dispatch] = useReducer(reducer, initialState );
   const { token } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUsers(token)
@@ -68,11 +71,16 @@ export default function UsersTable() {
     dispatch({ type: 'CLOSE_DELETE_DIALOG' });
   };
 
+  const openEditPage = (id: string) => {
+    navigate(`edit/${id}`)
+  };
+
   const tableHeaders = ['email', 'role', 'options'];
 
   return (
     <>
-      <CustomTable data={state.usersData} headers={tableHeaders} onDelete={openDeleteDialog}/>
+      <Button><Link to={'/new-user'}>Add User</Link></Button>
+      <CustomTable data={state.usersData} headers={tableHeaders} onDelete={openDeleteDialog} onEdit={openEditPage}/>
       <DeleteDialog message={`Would you like to delete ${state.selectedUserEmail}?`} open={state.isDeleteDialogOpen} onCancel={closeDeleteDialog} onDelete={() => deleteUser(state.selectedUserEmail)} />
     </>
   );
