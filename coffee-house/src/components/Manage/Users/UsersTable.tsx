@@ -79,6 +79,7 @@ export default function UsersTable() {
 
   return (
     <>
+    <Button><Link to={'/manage'}>Manage</Link></Button>
       <Button><Link to={'/new-user'}>Add User</Link></Button>
       <CustomTable data={state.usersData} headers={tableHeaders} onDelete={openDeleteDialog} onEdit={openEditPage}/>
       <DeleteDialog message={`Would you like to delete ${state.selectedUserEmail}?`} open={state.isDeleteDialogOpen} onCancel={closeDeleteDialog} onDelete={() => deleteUser(state.selectedUserEmail)} />

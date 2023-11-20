@@ -38,6 +38,10 @@ export default function LoginForm() {
         }
     };
 
+    const onCancel = () => {
+        navigate('/manage')
+    };
+
     return (
         <>
             <h2>New User</h2>
@@ -97,6 +101,7 @@ export default function LoginForm() {
                         <Button type="submit" variant="contained" color="primary" disabled={isLoading}>
                             {isLoading ? 'Adding user...' : 'Add User'}
                         </Button>
+                        <Button onClick={onCancel}>Cancel</Button>
                         <span>{message}</span>
                     </Stack>
                 </FormControl>

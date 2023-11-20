@@ -1,42 +1,32 @@
 import { Breadcrumbs, Button } from "@mui/material";
-import { useState } from "react";
-import UsersTable from "../components/Manage/Users/UsersTable";
-import ProductsTable from "../components/Manage/ProductsTable";
-import OrdersTable from "../components/Manage/OrdersTable";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Management() {
-    const [activeComponent, setActiveComponent] = useState<string>('users');
-
-    const handleBreadcrumbClick = (component: string) => {
-        setActiveComponent(component);
-    };
-
     return (
         <>
             <h1>Manage</h1>
             <Breadcrumbs aria-label="breadcrumb">
                 <Button
-                    component="button"
-                    onClick={() => handleBreadcrumbClick("users")}
+                    component={Link}
+                    to="/manage/users"
                 >
                     Users
                 </Button>
                 <Button
-                    component="button"
-                    onClick={() => handleBreadcrumbClick("products")}
+                    component={Link}
+                    to="/manage/products"
                 >
                     Products
                 </Button>
                 <Button
-                    component="button"
-                    onClick={() => handleBreadcrumbClick("orders")}
+                    component={Link}
+                    to="/manage/orders"
                 >
                     Orders
                 </Button>
             </Breadcrumbs>
-            {activeComponent === "users" && <UsersTable />}
-            {activeComponent === "products" && <ProductsTable />}
-            {activeComponent === "orders" && <OrdersTable />}
+            <Outlet />
         </>
     );
 };
+
