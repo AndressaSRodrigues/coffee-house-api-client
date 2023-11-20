@@ -1,11 +1,11 @@
 import { Breadcrumbs, Button } from "@mui/material";
 import { useState } from "react";
-import UsersTable from "../components/Manage/UsersTable";
+import UsersTable from "../components/Manage/Users/UsersTable";
 import ProductsTable from "../components/Manage/ProductsTable";
 import OrdersTable from "../components/Manage/OrdersTable";
 
 export default function Management() {
-    const [activeComponent, setActiveComponent] = useState<string>('');
+    const [activeComponent, setActiveComponent] = useState<string>('users');
 
     const handleBreadcrumbClick = (component: string) => {
         setActiveComponent(component);

@@ -5,9 +5,10 @@ interface TableProps {
     headers: string[];
     productRenderer?: (data: any) => JSX.Element;
     onDelete: (id: string) => void;
+    onEdit: (id: string) => void;
 }
 
-export function CustomTable({ data, headers, productRenderer, onDelete }: TableProps) {
+export function CustomTable({ data, headers, productRenderer, onDelete, onEdit }: TableProps) {
 
     function capitalize(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -38,7 +39,7 @@ export function CustomTable({ data, headers, productRenderer, onDelete }: TableP
                                             ) :
                                                 header === 'options' ? (
                                                     <>
-                                                        <Button>Edit</Button>
+                                                        <Button onClick={() => onEdit(item._id)}>Edit</Button>
                                                         <Button onClick={() => onDelete(item.email)}>Delete</Button>
                                                     </>
                                                 ) :

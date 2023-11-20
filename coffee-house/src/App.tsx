@@ -5,7 +5,8 @@ import Management from './pages/Management'
 import FrontHouse from './pages/FrontHouse'
 import BackHouse from './pages/BackHouse'
 import { AuthProvider } from './context/AuthContext'
-import EditUsers from './components/Manage/EditUsers'
+import AddUser from './components/Manage/Users/AddUser'
+import EditUser from './components/Manage/Users/EditUser'
 
 function App() {
 
@@ -13,10 +14,11 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path='/' element={<Authentication />} />
-        <Route path='manage' element={<Management />} />
-        <Route path='fronthouse' element={<FrontHouse />} />
-        <Route path='backhouse' element={<BackHouse />} />
-        <Route path='edit-users' element={<EditUsers />} />
+        <Route path='/manage' element={<Management />} />
+        <Route path='/new-user' element={<AddUser />} />
+        <Route path='/manage/edit/:id' element={<EditUser />} />
+        <Route path='/fronthouse' element={<FrontHouse />} />
+        <Route path='/backhouse' element={<BackHouse />} />
       </Routes>
     </AuthProvider>
   )
