@@ -53,7 +53,7 @@ export const deleteUsers = (token: string, email: string): Promise<Users[]> => {
         return response.json();
     })
     .catch(() => {
-        throw new Error('Unauthorized');
+        throw new Error();
     });
 };
 
