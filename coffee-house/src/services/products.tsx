@@ -39,3 +39,20 @@ export const deleteProduct = (token: string, id: string): Promise<Products[]> =>
         throw new Error();
     });
 };
+
+export const createProduct = (token: string, data: object): Promise<Products[]> => {
+    return fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .catch(() => {
+        throw new Error()
+    });
+};

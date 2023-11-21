@@ -70,7 +70,7 @@ export const createUser = (token: string, data: object): Promise<Users> => {
         return response.json();
     })
     .catch(() => {
-        throw new Error('Failed to add new user.')
+        throw new Error()
     });
 };
 

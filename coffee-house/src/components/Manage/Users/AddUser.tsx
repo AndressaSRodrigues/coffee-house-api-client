@@ -11,7 +11,7 @@ type FormData = {
     role: string;
 };
 
-export default function LoginForm() {
+export default function AddUser() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [message, setMessage] = useState<string | undefined>(undefined);
     const { token } = useAuth();

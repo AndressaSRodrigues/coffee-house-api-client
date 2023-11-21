@@ -45,6 +45,7 @@ export default function ProductsTable() {
   useEffect(() => {
     getProducts(token)
       .then((data) => {
+        console.log(data)
         dispatch({ type: 'SET_PRODUCTS', payload: data})
       })
       .catch((error) => {
@@ -74,7 +75,7 @@ export default function ProductsTable() {
     navigate(`edit/${id}`);
   };
 
-  const tableHeaders = ['name', 'price', 'type', 'options'];
+  const tableHeaders = ['name', 'price', 'image', 'type', 'options'];
 
   return (
     <>
