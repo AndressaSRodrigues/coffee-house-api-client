@@ -45,7 +45,6 @@ export default function ProductsTable() {
   useEffect(() => {
     getProducts(token)
       .then((data) => {
-        console.log(data)
         dispatch({ type: 'SET_PRODUCTS', payload: data})
       })
       .catch((error) => {

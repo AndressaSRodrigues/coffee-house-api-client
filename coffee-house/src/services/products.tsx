@@ -23,6 +23,22 @@ export const getProducts = (token: string): Promise<Products[]> => {
     });
 };
 
+export const getProductById = (token: string, id: string | undefined): Promise<Products> => {
+    return fetch(`${URL}/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .catch(() => {
+        throw new Error();
+    })
+}
+
 export const deleteProduct = (token: string, id: string): Promise<Products[]> => {
     const url = `${URL}/${id}`;
     return fetch(url, {
@@ -40,7 +56,7 @@ export const deleteProduct = (token: string, id: string): Promise<Products[]> =>
     });
 };
 
-export const createProduct = (token: string, data: object): Promise<Products[]> => {
+export const createProduct = (token: string, data: object): Promise<Products> => {
     return fetch(URL, {
         method: 'POST',
         headers: {
@@ -53,6 +69,23 @@ export const createProduct = (token: string, data: object): Promise<Products[]> 
         return response.json();
     })
     .catch(() => {
-        throw new Error()
+        throw new Error();
     });
+};
+
+export const editProduct = (token: string, id: string | undefined, data: object): Promise<Products> => {
+    return fetch(`${URL}/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .catch(() => {
+        throw new Error();
+    })
 };
