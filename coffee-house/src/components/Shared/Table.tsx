@@ -15,49 +15,48 @@ export function CustomTable({ data, headers, productRenderer, onDelete, onEdit }
     }
 
     return (
-        <>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 400 }} aria-label="users table">
-              <TableHead>
-                <TableRow>
-                  {headers.map((header, index) => (
-                    <TableCell key={index}>{capitalize(header)}</TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((item, itemIndex) => (
-                  <TableRow key={itemIndex}>
-                    {headers.map((header, headerIndex) => (
-                      <TableCell key={headerIndex}>
-                        {header === 'image' ? (
-                          <img
-                            src={item[header]}
-                            alt={item.name || 'Image'}
-                            style={{ maxWidth: '100px', maxHeight: '100px' }}
-                          />
-                        ) : header === 'products' && productRenderer ? (
-                          productRenderer(item)
-                        ) : header === 'manage' ? (
-                          <>
-                            <Button>Add</Button>
-                            <Button>CheckOut</Button>
-                          </>
-                        ) : header === 'options' ? (
-                          <>
-                            <Button onClick={() => onEdit(item._id)}>Edit</Button>
-                            <Button onClick={() => onDelete(item.email || item._id)}>Delete</Button>
-                          </>
-                        ) : (
-                          item[header]
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 400 }} aria-label="users table">
+          <TableHead>
+            <TableRow>
+              {headers.map((header, index) => (
+                <TableCell key={index}>{capitalize(header)}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((item, itemIndex) => (
+              <TableRow key={itemIndex}>
+                {headers.map((header, headerIndex) => (
+                  <TableCell key={headerIndex}>
+                    {header === 'image' ? (
+                      <img
+                        src={item[header]}
+                        alt={item.name || 'Image'}
+                        style={{ maxWidth: '100px', maxHeight: '100px' }}
+                      />
+                    ) : header === 'products' && productRenderer ? (
+                      productRenderer(item)
+                    ) : header === 'manage' ? (
+                      <>
+                        <Button>CheckOut</Button>
+                      </>
+                    ) : header === 'options' ? (
+                      <>
+                        <Button onClick={() => onEdit(item._id)}>Edit</Button>
+                        <Button onClick={() => onDelete(item.email || item._id)}>Delete</Button>
+                      </>
+                    ) : (
+                      item[header]
+                    )}
+                  </TableCell>
                 ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </>
-      );
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
+  );
 };

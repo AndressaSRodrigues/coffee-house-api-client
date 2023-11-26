@@ -9,9 +9,11 @@ import AddUser from './components/Manage/Users/AddUser'
 import EditUser from './components/Manage/Users/EditUser'
 import UsersTable from './components/Manage/Users/UsersTable'
 import ProductsTable from './components/Manage/Products/ProductsTable'
-import OrdersTable from './components/Manage/OrdersTable'
+import OrdersTable from './components/FrontHouse/OrdersTable'
 import EditProducts from './components/Manage/Products/EditProduct'
 import AddProduct from './components/Manage/Products/AddProduct'
+import EditOrder from './components/FrontHouse/EditOrder'
+import TakeOrder from './components/FrontHouse/TakeOrder'
 
 function App() {
 
@@ -30,11 +32,17 @@ function App() {
               <Route path="products" element={<ProductsTable />} />
               <Route path="products/new" element={<AddProduct />} />
               <Route path="products/edit/:id" element={<EditProducts />} />
-              <Route path="orders" element={<OrdersTable />} />
             </Routes>
           }
         />
-        <Route path='/fronthouse' element={<FrontHouse />} />
+        <Route path='/fronthouse/*' element={
+          <Routes>
+            <Route path='/' element={<FrontHouse />} />
+            <Route path="orders" element={<OrdersTable />} />
+            <Route path="orders/edit/:id" element={<EditOrder />} />
+            <Route path="take-order" element={<TakeOrder />} />
+          </Routes>
+        } />
         <Route path='/backhouse' element={<BackHouse />} />
       </Routes>
     </AuthProvider>

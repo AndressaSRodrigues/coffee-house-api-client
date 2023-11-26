@@ -20,7 +20,7 @@ export default function Management() {
                 </Button>
                 <Button
                     component={Link}
-                    to="/manage/orders"
+                    to="/fronthouse/orders"
                 >
                     Orders
                 </Button>

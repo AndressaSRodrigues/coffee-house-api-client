@@ -49,7 +49,6 @@ export default function EditProduct() {
             );
 
             await editProduct(token, id, updatedData);
-            console.log(updatedData)
             navigate('/manage/products');
         } catch (error) {
             const errorMessage = 'Please, check the product information.';
