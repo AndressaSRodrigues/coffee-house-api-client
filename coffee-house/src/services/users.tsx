@@ -23,8 +23,25 @@ export const getUsers = (token: string): Promise<Users[]> => {
     });
 };
 
-export const deleteUsers = (token: string, _id: string): Promise<Users[]> => {
-    const url = `${URL}/${_id}`;
+export const getUserById = (token: string, id: string | undefined): Promise<Users> => {
+    const url = `${URL}/${id}`;
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .catch(() => {
+        throw new Error();
+    })
+}
+
+export const deleteUsers = (token: string, email: string): Promise<Users[]> => {
+    const url = `${URL}/${email}`;
     return fetch(url, {
         method: 'DELETE',
         headers: {
@@ -36,7 +53,41 @@ export const deleteUsers = (token: string, _id: string): Promise<Users[]> => {
         return response.json();
     })
     .catch(() => {
-        throw new Error(`Unauthorized`);
+        throw new Error();
     });
 };
 
+export const createUser = (token: string, data: object): Promise<Users> => {
+    return fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .catch(() => {
+        throw new Error()
+    });
+};
+
+export const editUser = (token: string, id: string | undefined, data: object | null): Promise<Users> => {
+    const url = `${URL}/${id}`;
+    return fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .catch(() => {
+        throw new Error();
+    })
+};

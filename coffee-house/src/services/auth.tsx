@@ -22,6 +22,6 @@ export const auth = (email: string, password: string): Promise<AuthResponse> => 
             return response.json() as Promise<AuthResponse>;
         })
         .catch(() => {
-            throw new Error(`Unauthorized`);
+            throw new Error();
         });
 };

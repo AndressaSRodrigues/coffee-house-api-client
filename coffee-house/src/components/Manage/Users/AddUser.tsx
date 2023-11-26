@@ -1,54 +1,50 @@
 import { useForm, Controller } from 'react-hook-form';
-import { FormControl, TextField, Button, Stack } from '@mui/material';
-import { auth } from '../../services/auth';
-import { useNavigate } from 'react-router-dom';
+import { FormControl, TextField, Button, Stack, Radio, RadioGroup, FormControlLabel, Typography } from '@mui/material';
+import { createUser } from '../../../services/users';
 import { useState } from 'react';
+import { useAuth } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
     email: string;
     password: string;
+    role: string;
 };
 
-export default function LoginForm() {
+export default function AddUser() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+    const [message, setMessage] = useState<string | undefined>(undefined);
+    const { token } = useAuth();
+    const navigate = useNavigate();
 
     const { handleSubmit, control } = useForm<FormData>({
         defaultValues: {
             email: '',
             password: '',
+            role: '',
         },
     });
-
-    const navigateTo = useNavigate();
 
     const onSubmit = async (data: FormData) => {
         try {
             setIsLoading(true);
-            const response = await auth(data.email, data.password);
-            const role = response.user.role;
-            localStorage.setItem('token', response.accessToken);
-            switch (role) {
-                case 'admin': navigateTo('/manage');
-                    break;
-                case 'waiter': navigateTo('/fronthouse');
-                    break;
-                case 'chef': navigateTo('/backhouse');
-                    break;
-            }
+            await createUser(token, data);
+            navigate('/manage/users');
         } catch (error) {
-            const errorMessage = error instanceof Error 
-            ? `${error.message}. Please, check your credentials.` 
-            : 'An error occurred';
-            setErrorMessage(errorMessage);
+            const errorMessage = 'Please, check the user information.';
+            setMessage(errorMessage);
         } finally {
             setIsLoading(false);
         }
     };
 
+    const onCancel = () => {
+        navigate('/manage/users')
+    };
+
     return (
         <>
-            <h2>Login</h2>
+            <h2>New User</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl>
                     <Stack spacing={2} width={400}>
@@ -80,10 +76,33 @@ export default function LoginForm() {
                                 />
                             )}
                         />
-                        <span>{errorMessage}</span>
+                        <Controller
+                            name="role"
+                            control={control}
+                            rules={{ required: 'Role is required' }}
+                            render={({ field, fieldState }) => (
+                                <>
+                                    <RadioGroup
+                                        aria-label="role"
+                                        name="role"
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                    >
+                                        <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                                        <FormControlLabel value="waiter" control={<Radio />} label="Waiter" />
+                                        <FormControlLabel value="chef" control={<Radio />} label="Chef" />
+                                    </RadioGroup>
+                                    {fieldState.error && (
+                                        <Typography style={{color: 'red'}} variant="caption" color="textSecondary">{fieldState.error.message}</Typography>
+                                    )}
+                                </>
+                            )}
+                        />
                         <Button type="submit" variant="contained" color="primary" disabled={isLoading}>
-                            {isLoading ? 'Loggin in...' : 'Login'}
+                            {isLoading ? 'Adding user...' : 'Add User'}
                         </Button>
+                        <Button onClick={onCancel}>Cancel</Button>
+                        <span>{message}</span>
                     </Stack>
                 </FormControl>
             </form>
